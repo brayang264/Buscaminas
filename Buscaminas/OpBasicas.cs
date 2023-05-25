@@ -55,6 +55,10 @@ namespace Buscaminas
             {
 
             }
+            else
+            {
+
+            }
         }
 
         //Iniciar matriz
