@@ -27,7 +27,7 @@ namespace Buscaminas
             else
             {
                 int proporcion = int.Parse(boxProporcion.Texts);
-                if(proporcion <= 4)
+                if(proporcion < 4)
                 {
                     RJMessageBox.Show("Ingrese un número mayor a cuatro (4) para poder " +
                         "iniciar el juego");

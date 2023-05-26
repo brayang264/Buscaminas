@@ -46,6 +46,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(93)))), ((int)(((byte)(70)))));
             this.panel2.Controls.Add(this.botonProporcion);
             this.panel2.Controls.Add(this.boxProporcion);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -56,8 +57,8 @@
             // 
             // botonProporcion
             // 
-            this.botonProporcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(204)))), ((int)(((byte)(190)))));
-            this.botonProporcion.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(204)))), ((int)(((byte)(190)))));
+            this.botonProporcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(99)))), ((int)(((byte)(104)))));
+            this.botonProporcion.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(99)))), ((int)(((byte)(104)))));
             this.botonProporcion.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonProporcion.BorderRadius = 40;
             this.botonProporcion.BorderSize = 0;
@@ -78,13 +79,13 @@
             // 
             // boxProporcion
             // 
-            this.boxProporcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(72)))), ((int)(((byte)(69)))));
-            this.boxProporcion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(197)))), ((int)(((byte)(95)))));
-            this.boxProporcion.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(23)))), ((int)(((byte)(61)))));
+            this.boxProporcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(93)))), ((int)(((byte)(70)))));
+            this.boxProporcion.BorderColor = System.Drawing.Color.White;
+            this.boxProporcion.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.boxProporcion.BorderSize = 2;
             this.boxProporcion.Dock = System.Windows.Forms.DockStyle.Top;
             this.boxProporcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.boxProporcion.ForeColor = System.Drawing.Color.DimGray;
+            this.boxProporcion.ForeColor = System.Drawing.Color.White;
             this.boxProporcion.Location = new System.Drawing.Point(0, 0);
             this.boxProporcion.Margin = new System.Windows.Forms.Padding(4);
             this.boxProporcion.Multiline = false;
