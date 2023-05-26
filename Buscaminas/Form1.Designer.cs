@@ -30,9 +30,11 @@
         {
             this.panelTablero = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.fotoModo = new System.Windows.Forms.PictureBox();
             this.botonProporcion = new Buscaminas.BSGButtons();
             this.boxProporcion = new Buscaminas.BSGTextBox();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fotoModo)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTablero
@@ -47,6 +49,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(93)))), ((int)(((byte)(70)))));
+            this.panel2.Controls.Add(this.fotoModo);
             this.panel2.Controls.Add(this.botonProporcion);
             this.panel2.Controls.Add(this.boxProporcion);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -54,6 +57,20 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 511);
             this.panel2.TabIndex = 1;
+            // 
+            // fotoModo
+            // 
+            this.fotoModo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fotoModo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.fotoModo.Image = global::Buscaminas.Properties.Resources.mina;
+            this.fotoModo.Location = new System.Drawing.Point(0, 309);
+            this.fotoModo.Name = "fotoModo";
+            this.fotoModo.Size = new System.Drawing.Size(200, 202);
+            this.fotoModo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fotoModo.TabIndex = 2;
+            this.fotoModo.TabStop = false;
+            this.fotoModo.Visible = false;
+            this.fotoModo.Click += new System.EventHandler(this.clickFoto);
             // 
             // botonProporcion
             // 
@@ -109,6 +126,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fotoModo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -119,6 +137,7 @@
         private System.Windows.Forms.Panel panel2;
         private BSGTextBox boxProporcion;
         private BSGButtons botonProporcion;
+        private System.Windows.Forms.PictureBox fotoModo;
     }
 }
 

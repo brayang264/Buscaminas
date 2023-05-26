@@ -36,8 +36,30 @@ namespace Buscaminas
                 else
                 {
                     panelTablero = OpBasicas.IniciarTablero(panelTablero, proporcion);
+                    CambiarModo();
+                    fotoModo.Visible = true;
+
                 }
             }
+        }
+        
+        private void CambiarModo()
+        {
+            if(OpBasicas.flag2)
+            {
+                OpBasicas.flag2 = false;
+                fotoModo.Image = Buscaminas.Properties.Resources.bandera;
+            }
+            else
+            {
+                OpBasicas.flag2 = true;
+                fotoModo.Image = Buscaminas.Properties.Resources.mina;
+            }
+        }
+
+        private void clickFoto(object sender, EventArgs e)
+        {
+            CambiarModo();
         }
     }
 }

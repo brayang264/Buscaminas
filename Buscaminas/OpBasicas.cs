@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,12 @@ namespace Buscaminas
         public static List<int> rows = new List<int>();
         public static List<int> cols = new List<int>();
         public static List<bool> click = new List<bool>();
+        public static List<bool> colorSegundario = new List<bool>();
+        public static List<bool> banderaPuesta = new List<bool>();
         public static int numMinas = 0;
         public static int NumCasillasVacias = 0;
         public static int numTotalCasillas = 0;
+        public static int cantBanderas = 0;
 
         //Se inicia el panel con el la cantidad X por X que el usuario digito
         public static Panel IniciarTablero(Panel tablero, int BoardSize)
@@ -40,6 +46,8 @@ namespace Buscaminas
                     square.Size = new Size(tamaño1, tamaño2);
                     square.Location = new Point(col * tamaño1, row * tamaño2);
                     square.BackColor = (row + col) % 2 == 0 ? LightSquareColor : DarkSquareColor;
+                    colorSegundario.Add((row + col) % 2 == 0 ? true : false);
+                    banderaPuesta.Add(false);
                     square.Cursor = Cursors.Hand;
                     //Agregar si la casilla tiene una mina o no.
                     
@@ -59,17 +67,18 @@ namespace Buscaminas
 
         //Bandera para el modo de poner banderas o buscar las minas
         public static bool flag1 = true;
-        public static bool flag2 = true;
+        public static bool flag2 = false;
 
         //Metodo para comprobar que todavia no haya perdido
         private static void Perder(object sender, EventArgs e)
         {
-            if(flag2)
+            Panel ficha = (Panel)sender;
+            int index = casillas.IndexOf(ficha);
+            int row = rows[index];
+            int col = cols[index];
+            if (flag2)
             {
-                Panel ficha = (Panel)sender;
-                int index = casillas.IndexOf(ficha);
-                int row = rows[index];
-                int col = cols[index];
+                
                 //Este es para plsar en donde no haya una mina 
                 if (flag1)
                 {
@@ -79,19 +88,18 @@ namespace Buscaminas
                         {
                             RJMessageBox.Show("Perdiste\nUna lastimas, suerte para la proxima", "Retirese mas bien", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             click[index] = true;
-                            flag2 = false;
+                            flag1 = false;
                         }
                         else
                         {
-                            RJMessageBox.Show("Te haz salvado cachón", "Buena hpta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             click[index] = true;
                             NumCasillasVacias--;
-                            ficha.BackColor = ColorTranslator.FromHtml("#eaa353");
+                            ficha.BackColor = colorSegundario[index]? ColorTranslator.FromHtml("#eaa353"): ColorTranslator.FromHtml("#e0be7e");
                             int num = NumeroDeMinasAlLado(rows[index], cols[index]);
                             if(NumCasillasVacias == 0)
                             {
                                 RJMessageBox.Show("Ganaste");
-                                flag2 = false;
+                                flag1 = false;
                             }
                             else
                             {
@@ -130,13 +138,46 @@ namespace Buscaminas
                     }
 
                 }
-                //Este es para pulsar en donde este una mina.
+            }
+            //Este es para pulsar en donde este una mina.
+            else
+            {
+                if(flag1 == false)
+                {
+                    return;
+                }
+                if (!banderaPuesta[index])
+                {
+                    if (click[index])
+                    {
+                        return;
+                    }
+                    if(cantBanderas == 0)
+                    {
+                        RJMessageBox.Show("No hay mas banderas disponibles");
+                    }
+                    else
+                    {
+                        ficha.BackgroundImage = Buscaminas.Properties.Resources._2bandera;
+                        ficha.BackgroundImageLayout = ImageLayout.Stretch;
+                        banderaPuesta[index] = true;
+                        HayMina(row, col, banderaPuesta[index]);
+                        if (numMinas == 0)
+                        {
+                            RJMessageBox.Show("Has Ganado");
+                            flag1 = false;
+                        }
+                    }
+                    
+                }
                 else
                 {
-
+                    ficha.BackgroundImage = null;
+                    banderaPuesta[index] = false;
+                    HayMina(row, col, banderaPuesta[index]);
                 }
             }
-            
+
         }
 
         //Iniciar matriz
@@ -160,6 +201,7 @@ namespace Buscaminas
             Random numeroDeMinas = new Random();
             int minas = numeroDeMinas.Next(proporcion*2,(proporcion*proporcion/2)+1);
             numMinas = minas;
+            cantBanderas = minas;
             NumCasillasVacias = (proporcion * proporcion) - minas;
             RJMessageBox.Show(minas + "");
             int cont = 0;
@@ -312,6 +354,28 @@ namespace Buscaminas
             }
 
             return cont;
+        }
+
+        //Metodo para saber si hay mina en la posicion
+        public static void HayMina(int row,int col, bool bandera)
+        {
+            if (!bandera)
+            {
+                if (tableroReferencia[row, col] == 1)
+                {
+                    numMinas++;
+                }
+                cantBanderas++;
+            }
+            else
+            {
+                if (tableroReferencia[row, col] == 1)
+                {
+                    RJMessageBox.Show("Quedan: " + numMinas + " minas");
+                    numMinas--;
+                }
+                cantBanderas--;
+            }
         }
         //Metodo para conprobar que el número ingresado por el  usuario sea valido
         public static bool EsNum(string num)
