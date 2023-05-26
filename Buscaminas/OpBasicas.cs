@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace Buscaminas
         public static List<bool> click = new List<bool>();
         public static int numMinas = 0;
         public static int NumCasillasVacias = 0;
+        public static int numTotalCasillas = 0;
 
         //Se inicia el panel con el la cantidad X por X que el usuario digito
         public static Panel IniciarTablero(Panel tablero, int BoardSize)
@@ -29,6 +31,7 @@ namespace Buscaminas
             Color DarkSquareColor = ColorTranslator.FromHtml("#104f0c");
             int tamaño1 = tablero.Width / BoardSize;
             int tamaño2 = tablero.Height / BoardSize;
+            numTotalCasillas = BoardSize;
             for (int row = 0; row < BoardSize; row++)
             {
                 for (int col = 0; col < BoardSize; col++)
@@ -41,7 +44,6 @@ namespace Buscaminas
                     //Agregar si la casilla tiene una mina o no.
                     
                     square.Click += new EventHandler(Perder);
-                    RJMessageBox.Show("");
                     tablero.Controls.Add(square);
                     casillas.Add(square);
                     cols.Add(col);
@@ -85,10 +87,44 @@ namespace Buscaminas
                             click[index] = true;
                             NumCasillasVacias--;
                             ficha.BackColor = ColorTranslator.FromHtml("#eaa353");
+                            int num = NumeroDeMinasAlLado(rows[index], cols[index]);
                             if(NumCasillasVacias == 0)
                             {
                                 RJMessageBox.Show("Ganaste");
                                 flag2 = false;
+                            }
+                            else
+                            {
+                                switch(num)
+                                {
+                                    case 1:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.uno;
+                                        break;
+                                    case 2:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.dos;
+                                        break;
+                                    case 3:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.tres;
+                                        break;
+                                    case 4:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.cuatro;
+                                        break;
+                                    case 5:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.cinco;
+                                        break;
+                                    case 6:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.seis;
+                                        break;
+                                    case 7:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.siete;
+                                        break;
+                                    case 8:
+                                        ficha.BackgroundImage = Buscaminas.Properties.Resources.ocho;
+                                        break;
+                                    default: 
+                                        break;
+                                }
+                                ficha.BackgroundImageLayout = ImageLayout.Zoom;
                             }
                         }
                     }
@@ -130,8 +166,9 @@ namespace Buscaminas
             //aqui se ponen las minas
             while ( cont < minas )
             {
-                int fila = numeroDeMinas.Next(0, proporcion-1);
-                int colum = numeroDeMinas.Next(0, proporcion-1);
+
+                int fila = numeroDeMinas.Next(0, proporcion);
+                int colum = numeroDeMinas.Next(0, proporcion);
                 if (tableroReferencia[fila, colum]==0)
                 {
                     tableroReferencia[fila, colum] = 1;
@@ -155,12 +192,133 @@ namespace Buscaminas
             }
             return respuesta;
         }
+        //metodo para comprobar cuantas minas al despues de hacer click en una casillla
+        //sin minas
+        public static int NumeroDeMinasAlLado(int row, int col)
+        {
+            int cont = 0;
+            //esquinas
+            if(row == 0 && col == 0)
+            {
+                if (tableroReferencia[row, col+1] == 1)
+                { cont++; }
+                if (tableroReferencia[row+1,col+1] ==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col] ==1)
+                { cont++; }
+            }
+            else if(row == 0 && col == numTotalCasillas-1)
+            {
+                if (tableroReferencia[row,col-1]==1)
+                { cont++; }
+                if (tableroReferencia[row+1, col-1]==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col]==1)
+                { cont++; }
+            }
+            else if(row==numTotalCasillas-1 && col==0)
+            {
+                if (tableroReferencia[row-1,col]==1)
+                { cont++; }
+                if (tableroReferencia[row-1,col+1]==1)
+                { cont++; }
+                if (tableroReferencia[row,col+1]==1)
+                { cont++; }
+            }
+            else if(row == numTotalCasillas-1 && col == numTotalCasillas-1)
+            {
+                if (tableroReferencia[row,col-1]==1)
+                { cont++; }
+                if (tableroReferencia[row-1,col-1]==1)
+                { cont++; }
+                if (tableroReferencia[row-1,col]==1)
+                { cont++; }
+            }
+            //bordes
+            else if(col ==0)
+            {
+                if (tableroReferencia[row-1,col]==1)
+                { cont++; }
+                if (tableroReferencia[row-1,col+1]==1)
+                { cont++; }
+                if (tableroReferencia[row,col+1]==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col+1]==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col]==1)
+                { cont++; }
 
+
+            }
+            else if(col == numTotalCasillas-1)
+            {
+                if (tableroReferencia[row - 1, col] == 1)
+                { cont++; }
+                if (tableroReferencia[row - 1, col - 1] == 1)
+                { cont++; }
+                if (tableroReferencia[row, col - 1] == 1)
+                { cont++; }
+                if (tableroReferencia[row + 1, col - 1] == 1)
+                { cont++; }
+                if (tableroReferencia[row + 1, col] == 1)
+                { cont++; }
+            }
+            else if(row==0)
+            {
+                if (tableroReferencia[row,col+1] == 1)
+                { cont++; }
+                if (tableroReferencia[row+1,col+1] ==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col]==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col-1] == 1)
+                { cont++; }
+                if (tableroReferencia[row,col-1]==1)
+                { cont++; }
+
+            }
+            else if(row == numTotalCasillas-1)
+            {
+                if (tableroReferencia[row, col + 1] == 1)
+                { cont++; }
+                if (tableroReferencia[row - 1, col + 1] == 1)
+                { cont++; }
+                if (tableroReferencia[row - 1, col] == 1)
+                { cont++; }
+                if (tableroReferencia[row - 1, col - 1] == 1)
+                { cont++; }
+                if (tableroReferencia[row, col - 1] == 1)
+                { cont++; }
+            }
+            //Ninguna de las anteriores
+            else
+            {
+                if (tableroReferencia[row-1,col] == 1)
+                { cont++; }
+                if (tableroReferencia[row-1,col+1] == 1)
+                { cont++; }
+                if (tableroReferencia[row,col+1]==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col+1]==1)
+                { cont++; }
+                if (tableroReferencia[row+1,col] == 1)
+                { cont++; }
+                if (tableroReferencia[row+1,col-1] == 1)
+                { cont++; }
+                if (tableroReferencia[row,col-1]==1)
+                { cont++; }
+                if (tableroReferencia[row-1,col-1] == 1)
+                { cont++; }
+            }
+
+            return cont;
+        }
         //Metodo para conprobar que el número ingresado por el  usuario sea valido
         public static bool EsNum(string num)
         {
             bool x = int.TryParse(num, out int y);
             return x;
         }
+
     }
 }
