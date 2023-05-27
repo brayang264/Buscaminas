@@ -87,6 +87,7 @@ namespace Buscaminas
             if(!primerClick)
             {
                 AñadirMinas(numTotalCasillas);
+                ActualizarMinas();
             }
             Panel ficha = (Panel)sender;
             int index = casillas.IndexOf(ficha);
@@ -125,7 +126,7 @@ namespace Buscaminas
                             int num = NumeroDeMinasAlLado(rows[index], cols[index]);
                             if (NumCasillasVacias == 0)
                             {
-                                RJMessageBox.Show("Ganaste");
+                                RJMessageBox.Show("Ganaste","Info",MessageBoxButtons.OK,MessageBoxIcon.Information);
                                 flag1 = false;
                                 PerdioOGano();
                             }
@@ -183,7 +184,7 @@ namespace Buscaminas
                     }
                     if (cantBanderas == 0)
                     {
-                        RJMessageBox.Show("No hay mas banderas disponibles");
+                        RJMessageBox.Show("No hay mas banderas disponibles","Alerta",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     }
                     else
                     {
@@ -192,9 +193,10 @@ namespace Buscaminas
                         banderaPuesta[index] = true;
                         click[index] = true;
                         HayMina(row, col, banderaPuesta[index]);
+                        ActualizarMinas();
                         if (numMinas == 0)
                         {
-                            RJMessageBox.Show("Has Ganado");
+                            RJMessageBox.Show("Has Ganado", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             flag1 = false;
                         }
                     }
@@ -206,6 +208,7 @@ namespace Buscaminas
                     banderaPuesta[index] = false;
                     click[index] = false;
                     HayMina(row, col, banderaPuesta[index]);
+                    ActualizarMinas();
                 }
             }
 
@@ -235,7 +238,7 @@ namespace Buscaminas
             numMinas = minas;
             cantBanderas = minas;
             NumCasillasVacias = (proporcion * proporcion) - minas;
-            RJMessageBox.Show(minas + "");
+            //RJMessageBox.Show(minas + "");
             int cont = 0;
             //aqui se ponen las minas
             while ( cont < minas )
@@ -249,7 +252,7 @@ namespace Buscaminas
                     cont++;
                 }
             }
-            RJMessageBox.Show(ImprimirMatriz(tableroReferencia));
+            //RJMessageBox.Show(ImprimirMatriz(tableroReferencia));
         }
 
         //Mostrar matriz
@@ -674,6 +677,11 @@ namespace Buscaminas
             form1.Reiniciar();
         }
 
+        public static void ActualizarMinas()
+        {
+            Form1 form1 = (Form1)Application.OpenForms["Form1"];
+            form1.ActualizarLable(numMinas);
+        }
            
     }
 }

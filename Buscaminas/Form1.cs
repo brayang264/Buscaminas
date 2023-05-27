@@ -26,7 +26,7 @@ namespace Buscaminas
             timer.Interval = 100; // Intervalo de actualización del cronómetro en milisegundos
             timer.Tick += Timer_Tick;
         }
-
+        public bool flag = false;
         private void botonProporcion_Click(object sender, EventArgs e)
         {
             if(!OpBasicas.EsNum(boxProporcion.Texts))
@@ -44,9 +44,18 @@ namespace Buscaminas
                 }
                 else
                 {
+                    if(!flag)
+                    {
+                        RJMessageBox.Show("Puede cambiar el modo de juego haciendo click en \n" +
+                            "la imagen de la esquina inferior izquierda", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        flag = true;
+                    }
                     panelTablero = OpBasicas.IniciarTablero(panelTablero, proporcion);
                     CambiarModo();
+                    label2.Visible = true;
+                    cantMinas.Visible = true;
                     fotoModo.Visible = true;
+                    botonReiniciar.Visible = true;
                     boxProporcion.Visible = false;
                     botonProporcion.Visible = false;
                     label1.Visible = false;
@@ -111,13 +120,40 @@ namespace Buscaminas
             }
             else
             {
+                cantMinas.Visible = false;
+                label2.Visible = false;
                 label1.Visible = true;
                 boxProporcion.Visible = true;
                 fotoModo.Visible = false;
                 botonProporcion.Visible = true;
                 modo.Visible = false;
                 panelTablero = OpBasicas.ReiniciarJuego(panelTablero);
+                botonReiniciar.Visible = false;
+                timeLabel.Visible = false;
+                cantMinas.Checked = false;
+                labelMinas.Text = "Minas restrantes: ";
             }
+        }
+
+        private void botonReiniciar_Click(object sender, EventArgs e)
+        {
+            Reiniciar();
+        }
+
+        private void MostrarMinas(object sender, EventArgs e)
+        {
+            if(cantMinas.Checked)
+            {
+                labelMinas.Visible = true;
+            }
+            else
+            {
+                labelMinas.Visible=false;
+            }
+        }
+        public void ActualizarLable(int cantidad)
+        {
+            labelMinas.Text = "Minas restrantes: " + cantidad;
         }
     }
 }
