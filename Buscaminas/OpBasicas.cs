@@ -34,6 +34,13 @@ namespace Buscaminas
         //Se inicia el panel con el la cantidad X por X que el usuario digito
         public static Panel IniciarTablero(Panel tablero, int BoardSize)
         {
+            primerClick = false;
+            numMinas = 0;
+            numTotalCasillas = 0;
+            NumCasillasVacias = 0;
+            cantBanderas = 0;
+            flag1 = true;
+            flag2 = false;
             Color LightSquareColor = ColorTranslator.FromHtml("#3e7b32"); 
             Color DarkSquareColor = ColorTranslator.FromHtml("#104f0c");
             Panel[,] paneles = new Panel[BoardSize,BoardSize];
@@ -108,6 +115,7 @@ namespace Buscaminas
                             RJMessageBox.Show("Perdiste\nUna lastimas, suerte para la proxima", "Retirese mas bien", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             click[index] = true;
                             flag1 = false;
+                            PerdioOGano();
                         }
                         else
                         {
@@ -119,6 +127,7 @@ namespace Buscaminas
                             {
                                 RJMessageBox.Show("Ganaste");
                                 flag1 = false;
+                                PerdioOGano();
                             }
                             else
                             {
@@ -653,5 +662,18 @@ namespace Buscaminas
             return x;
         }
 
+        public static Panel ReiniciarJuego(Panel tablero)
+        {
+            tablero.Controls.Clear();
+            return tablero;
+        }
+        public static void PerdioOGano()
+        {
+            Form1 form1 = (Form1)Application.OpenForms["Form1"];
+            form1.Crono();
+            form1.Reiniciar();
+        }
+
+           
     }
 }

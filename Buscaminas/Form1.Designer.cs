@@ -33,6 +33,9 @@
             this.fotoModo = new System.Windows.Forms.PictureBox();
             this.botonProporcion = new Buscaminas.BSGButtons();
             this.boxProporcion = new Buscaminas.BSGTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timeLabel = new System.Windows.Forms.Label();
+            this.modo = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fotoModo)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +51,10 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(93)))), ((int)(((byte)(70)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(66)))), ((int)(((byte)(82)))));
+            this.panel2.Controls.Add(this.modo);
+            this.panel2.Controls.Add(this.timeLabel);
+            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.fotoModo);
             this.panel2.Controls.Add(this.botonProporcion);
             this.panel2.Controls.Add(this.boxProporcion);
@@ -80,12 +86,11 @@
             this.botonProporcion.BorderRadius = 40;
             this.botonProporcion.BorderSize = 0;
             this.botonProporcion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonProporcion.Dock = System.Windows.Forms.DockStyle.Top;
             this.botonProporcion.FlatAppearance.BorderSize = 0;
             this.botonProporcion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonProporcion.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonProporcion.ForeColor = System.Drawing.Color.White;
-            this.botonProporcion.Location = new System.Drawing.Point(0, 31);
+            this.botonProporcion.Location = new System.Drawing.Point(0, 88);
             this.botonProporcion.Name = "botonProporcion";
             this.botonProporcion.Size = new System.Drawing.Size(200, 40);
             this.botonProporcion.TabIndex = 1;
@@ -96,14 +101,13 @@
             // 
             // boxProporcion
             // 
-            this.boxProporcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(93)))), ((int)(((byte)(70)))));
+            this.boxProporcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(66)))), ((int)(((byte)(82)))));
             this.boxProporcion.BorderColor = System.Drawing.Color.White;
             this.boxProporcion.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.boxProporcion.BorderSize = 2;
-            this.boxProporcion.Dock = System.Windows.Forms.DockStyle.Top;
             this.boxProporcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boxProporcion.ForeColor = System.Drawing.Color.White;
-            this.boxProporcion.Location = new System.Drawing.Point(0, 0);
+            this.boxProporcion.Location = new System.Drawing.Point(0, 50);
             this.boxProporcion.Margin = new System.Windows.Forms.Padding(4);
             this.boxProporcion.Multiline = false;
             this.boxProporcion.Name = "boxProporcion";
@@ -113,6 +117,42 @@
             this.boxProporcion.TabIndex = 0;
             this.boxProporcion.Texts = "";
             this.boxProporcion.UnderlinedStyle = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 42);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Ingrese el número\r\nde filas:";
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLabel.ForeColor = System.Drawing.Color.White;
+            this.timeLabel.Location = new System.Drawing.Point(48, 244);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(74, 24);
+            this.timeLabel.TabIndex = 4;
+            this.timeLabel.Text = "label2";
+            this.timeLabel.Visible = false;
+            // 
+            // modo
+            // 
+            this.modo.AutoSize = true;
+            this.modo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.modo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modo.ForeColor = System.Drawing.Color.White;
+            this.modo.Location = new System.Drawing.Point(0, 288);
+            this.modo.Name = "modo";
+            this.modo.Size = new System.Drawing.Size(175, 21);
+            this.modo.TabIndex = 5;
+            this.modo.Text = "buscar casillas vácias";
+            this.modo.Visible = false;
             // 
             // Form1
             // 
@@ -126,6 +166,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fotoModo)).EndInit();
             this.ResumeLayout(false);
 
@@ -138,6 +179,9 @@
         private BSGTextBox boxProporcion;
         private BSGButtons botonProporcion;
         private System.Windows.Forms.PictureBox fotoModo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label timeLabel;
+        private System.Windows.Forms.Label modo;
     }
 }
 

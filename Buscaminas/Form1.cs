@@ -12,10 +12,19 @@ namespace Buscaminas
 {
     public partial class Form1 : Form
     {
+
+        private Timer timer;
+        private DateTime startTime;
+        private bool isRunning;
+
+
         public Form1()
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
+            timer = new Timer();
+            timer.Interval = 100; // Intervalo de actualización del cronómetro en milisegundos
+            timer.Tick += Timer_Tick;
         }
 
         private void botonProporcion_Click(object sender, EventArgs e)
@@ -40,7 +49,9 @@ namespace Buscaminas
                     fotoModo.Visible = true;
                     boxProporcion.Visible = false;
                     botonProporcion.Visible = false;
-
+                    label1.Visible = false;
+                    modo.Visible = true;
+                    Crono();
                 }
             }
         }
@@ -51,17 +62,62 @@ namespace Buscaminas
             {
                 OpBasicas.flag2 = false;
                 fotoModo.Image = Buscaminas.Properties.Resources.bandera;
+                modo.Text = "Poner bandera";
+                
             }
             else
             {
                 OpBasicas.flag2 = true;
                 fotoModo.Image = Buscaminas.Properties.Resources.mina;
+                modo.Text = "buscar casillas vácias";
             }
         }
 
         private void clickFoto(object sender, EventArgs e)
         {
             CambiarModo();
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Calcular el tiempo transcurrido
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+
+            // Actualizar la etiqueta con el tiempo transcurrido
+            timeLabel.Text = elapsedTime.ToString(@"hh\:mm\:ss");
+        }
+        public void Crono()
+        {
+            if (isRunning)
+            {
+                // Detener el cronómetro
+                timer.Stop();
+                isRunning = false;
+            }
+            else
+            {
+                // Iniciar el cronómetro o reiniciarlo
+                startTime = DateTime.Now;
+                timer.Start();
+                timeLabel.Visible = true;
+                isRunning = true;
+            }
+        }
+        public void Reiniciar()
+        {
+            DialogResult respuesta = RJMessageBox.Show("¿Desea reiniciar el juego?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (respuesta == DialogResult.No)
+            {
+
+            }
+            else
+            {
+                label1.Visible = true;
+                boxProporcion.Visible = true;
+                fotoModo.Visible = false;
+                botonProporcion.Visible = true;
+                modo.Visible = false;
+                panelTablero = OpBasicas.ReiniciarJuego(panelTablero);
+            }
         }
     }
 }
